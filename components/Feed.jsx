@@ -29,18 +29,15 @@ const Feed = () => {
   useEffect(() => {
     console.log("fetch post", allPosts)
     const fetchPosts = async () => {
-      const response = await fetch("/api/prompt", {
-        headers: {
-          "Cache-Control": "no-cache",
-        },
-      })
+      const response = await fetch("/api/prompt")
+      console.log("response ", response)
       const data = await response.json()
 
       setAllPosts(data)
     }
-    console.log("fetch post", allPosts)
 
     fetchPosts()
+    console.log("fetch post", allPosts)
   }, [])
 
   const filterPrompts = (searchtext) => {
