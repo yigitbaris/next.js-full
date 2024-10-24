@@ -38,6 +38,8 @@ const Feed = () => {
 
       setAllPosts(data)
     }
+    console.log("fetch post", allPosts)
+
     fetchPosts()
   }, [])
 
