@@ -1,11 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
-
 import Form from "@components/Form"
 
+// Main component
 const UpdatePrompt = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PromptUpdater />
+    </Suspense>
+  )
+}
+
+// Child component that handles fetching and updating the prompt
+const PromptUpdater = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const promptId = searchParams.get("id")
@@ -15,6 +24,7 @@ const UpdatePrompt = () => {
 
   useEffect(() => {
     const getPromptDetails = async () => {
+      if (!promptId) return // Ensure promptId is available before fetching
       const response = await fetch(`/api/prompt/${promptId}`)
       const data = await response.json()
 
@@ -24,7 +34,7 @@ const UpdatePrompt = () => {
       })
     }
 
-    if (promptId) getPromptDetails()
+    getPromptDetails()
   }, [promptId])
 
   const updatePrompt = async (e) => {
@@ -36,6 +46,9 @@ const UpdatePrompt = () => {
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({
           prompt: post.prompt,
           tag: post.tag,
