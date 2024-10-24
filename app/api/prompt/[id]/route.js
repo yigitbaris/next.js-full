@@ -52,8 +52,8 @@ export const DELETE = async (request, { params }) => {
       return new Response("ID is required", { status: 400 })
     }
 
-    // Find the prompt by ID and remove it
-    const deletedPrompt = await Prompt.findByIdAndRemove(params.id)
+    // Use findByIdAndDelete instead of findByIdAndRemove
+    const deletedPrompt = await Prompt.findByIdAndDelete(params.id)
 
     // Check if the prompt was found and deleted
     if (!deletedPrompt) {
