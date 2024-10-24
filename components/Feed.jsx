@@ -27,7 +27,6 @@ const Feed = () => {
   const [searchedResults, setSearchedResults] = useState([])
 
   useEffect(() => {
-    console.log("fetch post", allPosts)
     const fetchPosts = async () => {
       const response = await fetch("/api/prompt")
       console.log("response ", response)
