@@ -52,7 +52,7 @@ export const DELETE = async (request, { params }) => {
 
     return new Response("Prompt deleted successfully", { status: 200 })
   } catch (error) {
-    console.error("Error fetching prompts:", error) // Log the error for debugging
+    console.error("Error deleting prompts:", error) // Log the error for debugging
     return new Response("Error deleting prompt", { status: 500 })
   }
 }
